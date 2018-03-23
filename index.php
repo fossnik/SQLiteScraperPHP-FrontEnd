@@ -16,10 +16,12 @@
 		'<h1>Select Your Coin</h1>',
 			'<form action="#" method="post">',
 				'<select name="coin">',
-					'<option value="">---------</option>';
+					'<option value="">Coins</option>';
 
 		foreach ($queryDb->getCoins() as $dbCoin)
-			echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
+			echo '<option value="'.$dbCoin.'">' .
+				strtoupper(str_replace("usd", "", $dbCoin)) .
+				'</option>';
 
 		echo
 			'</select>',
@@ -44,23 +46,23 @@
 					'">' . $date . '</a>';
 		}
 
-	function getCoin($coin, $snapKey) {
-		echo 'I will attempt to grab snapshot #' . $snapKey .
-		' of ' . $coin . '<br>';
-	}
-
-	if (isset($_GET['snapshot'])) {
-		getCoin($_GET['coin'], $_GET['snapshot']);
-		echo '<table>';
-		foreach ($queryDb->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
-			echo
-				'<tr>' .
-					'<td>' . $key . '</td>' .
-					'<td>' . $string . '</td>' .
-			'</tr>';
+		function getCoin($coin, $snapKey) {
+			echo 'Snapshot #' . $snapKey .
+			' of ' . $coin . '<br>';
 		}
-		echo '</table>';
-	}
+
+		if (isset($_GET['snapshot'])) {
+			getCoin($_GET['coin'], $_GET['snapshot']);
+			echo '<table>';
+			foreach ($queryDb->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
+				echo
+					'<tr>' .
+						'<td>' . $key . '</td>' .
+						'<td>' . $string . '</td>' .
+				'</tr>';
+			}
+			echo '</table>';
+		}
 	?>
 </body>
 </html>
