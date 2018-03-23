@@ -33,11 +33,8 @@
 				$snapshotDates[] = $snapshot['dateCreated'];
 
 			echo '<form action="#" method="post">';
-			echo '<select name="snapshotDateTime">';
-			echo '<option value="">snapshot dates</option>';
 			foreach ($snapshotDates as $key => $date)
-				echo '<option value="'.$key.'">'.$date.'</option>';
-			echo '</select>';
+				echo '<input type="radio" name="radio" value="'.$key.'">'.$date;
 			echo '</form>';
 		}
 		?>
