@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>My Coins and Stuff</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<?php
 	require __DIR__ . '/dbQuery.php';
 
