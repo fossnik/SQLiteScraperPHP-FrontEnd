@@ -51,11 +51,15 @@
 
 	if (isset($_GET['snapshot'])) {
 		getCoin($_GET['coin'], $_GET['snapshot']);
-		echo '<br>';
-		foreach ($queryDb->getcoin($_GET['coin'])[$_GET['snapshot']] as $string) {
-			echo $string;
-			echo '<br>';
+		echo '<table>';
+		foreach ($queryDb->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
+			echo
+				'<tr>' .
+					'<td>' . $key . '</td>' .
+					'<td>' . $string . '</td>' .
+			'</tr>';
 		}
+		echo '</table>';
 	}
 	?>
 </body>
