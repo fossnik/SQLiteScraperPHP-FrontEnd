@@ -4,11 +4,11 @@
 	<meta charset="UTF-8">
 	<title>My Coins and Stuff</title>
 	<?php
-		require __DIR__ . '/dbQuery.php';
+	require __DIR__ . '/dbQuery.php';
 
-		// declare a new database query object
-		$queryDb = new dbQuery;
-		?>
+	// declare a new database query object
+	$queryDb = new dbQuery;
+	?>
 </head>
 <body>
 
@@ -17,17 +17,29 @@
 			<select name="coin">
 				<option value="">---------</option>
 				<?php
-					foreach ($queryDb->getCoins() as $dbCoin)
-						echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
-					?>
+				foreach ($queryDb->getCoins() as $dbCoin)
+					echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
+				?>
 			</select>
 			<input type="submit" name="submit" value="Query Coin from DB"/>
 		</form>
 		<?php
-			if(isset($_POST['submit'])) {
-				$coinName = $_POST['coin'];
-				print_r($queryDb->getcoin($coinName));
-			}
-			?>
+		if(isset($_POST['submit'])) {
+			$coinName = $_POST['coin'];
+			$snapshots[] = $queryDb->getcoin($coinName);
+
+			$snapshotDates = [];
+			foreach ($snapshots[0] as $snapshot)
+				$snapshotDates[] = $snapshot['dateCreated'];
+
+			echo '<form action="#" method="post">';
+			echo '<select name="snapshotDateTime">';
+			echo '<option value="">snapshot dates</option>';
+			foreach ($snapshotDates as $key => $date)
+				echo '<option value="'.$key.'">'.$date.'</option>';
+			echo '</select>';
+			echo '</form>';
+		}
+		?>
 </body>
 </html>
