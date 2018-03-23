@@ -31,11 +31,13 @@ class dbQuery
 		return $DbCoins;
 	}
 
-//	public static function getCoin($name) {
-//		$query = $pdo->query('SELECT * FROM btcusd');
-//		//while($row = $query->fetch(PDO::FETCH_ASSOC)) {
-//		//	print_r( $row );
-//		return $coin;
-//	}
+	public static function getCoin($name) {
+		$query = self::$pdo->query('SELECT * FROM ' . $name);
+		$coin = [];
+		while($row = $query->fetch(PDO::FETCH_ASSOC))
+			$coin[] = $row;
+
+		return $coin;
+	}
 
 }

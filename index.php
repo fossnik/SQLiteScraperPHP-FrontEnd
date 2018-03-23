@@ -13,13 +13,21 @@
 <body>
 
 	<h1>Select Your Coin</h1>
-		<select name="country">
-			<option value="">---------</option>
-			<?php
-				foreach ($queryDb->getCoins() as $dbCoin)
-					echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
-				?>
-		</select>
-
+		<form action="#" method="post">
+			<select name="coin">
+				<option value="">---------</option>
+				<?php
+					foreach ($queryDb->getCoins() as $dbCoin)
+						echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
+					?>
+			</select>
+			<input type="submit" name="submit" value="Query Coin from DB"/>
+		</form>
+		<?php
+			if(isset($_POST['submit'])) {
+				$coinName = $_POST['coin'];
+				print_r($queryDb->getcoin($coinName));
+			}
+			?>
 </body>
 </html>
