@@ -24,7 +24,7 @@ class dbQuery
 	public static function getCoins() {
 		// construct a list of all coins present in database
 		$DbCoins = [];
-		$query = self::$pdo->query("SELECT name FROM sqlite_master WHERE type='table';");
+		$query = self::$pdo->query("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
 		while($coin = $query->fetch(PDO::FETCH_ASSOC))
 			$DbCoins[] = $coin['name'];
 
