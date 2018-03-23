@@ -4,15 +4,14 @@
 	<meta charset="UTF-8">
 	<title>My Coins and Stuff</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<?php
-	require __DIR__ . '/dbQuery.php';
-
-	// declare a new database query object
-	$queryDb = new dbQuery;
-	?>
 </head>
 <body>
 	<?php
+		require __DIR__ . '/dbQuery.php';
+
+		// declare a new database query object
+		$queryDb = new dbQuery;
+
 		echo
 		'<h1>Select Your Coin</h1>',
 			'<form action="#" method="post">',
@@ -26,8 +25,10 @@
 			'</select>',
 			'<input type="submit" name="submit" value="Query Snapshot Dates from DB"/>',
 			'</form>';
+
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
+
 			$snapshots[] = $queryDb->getcoin($coinName);
 
 			$snapshotDates = [];
@@ -37,19 +38,25 @@
 			echo '<form action="#" method="post">';
 
 			foreach ($snapshotDates as $key => $date)
-				echo '<a href="index.php?snapshot=' . $key . '">' . $date . '</a>';
-
+				echo '<a href="index.php?' .
+					'coin=' . $coinName .
+					'&snapshot=' . $key .
+					'">' . $date . '</a>';
 		}
 
-	function getCoin($snapshot) {
-		echo 'I will attempt to grab snapshot #'.
-		$snapshot;
+	function getCoin($coin, $snapKey) {
+		echo 'I will attempt to grab snapshot #' . $snapKey .
+		' of ' . $coin . '<br>';
 	}
 
-	if (isset($_GET['snapshot']))
-		getCoin($_GET['snapshot']);
-
+	if (isset($_GET['snapshot'])) {
+		getCoin($_GET['coin'], $_GET['snapshot']);
+		echo '<br>';
+		foreach ($queryDb->getcoin($_GET['coin'])[$_GET['snapshot']] as $string) {
+			echo $string;
+			echo '<br>';
+		}
+	}
 	?>
-
 </body>
 </html>
