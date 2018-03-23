@@ -11,19 +11,20 @@
 	?>
 </head>
 <body>
+	<?php
+		echo
+		'<h1>Select Your Coin</h1>',
+			'<form action="#" method="post">',
+				'<select name="coin">',
+					'<option value="">---------</option>';
 
-	<h1>Select Your Coin</h1>
-		<form action="#" method="post">
-			<select name="coin">
-				<option value="">---------</option>
-				<?php
-				foreach ($queryDb->getCoins() as $dbCoin)
-					echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
-				?>
-			</select>
-			<input type="submit" name="submit" value="Query Coin from DB"/>
-		</form>
-		<?php
+		foreach ($queryDb->getCoins() as $dbCoin)
+			echo '<option value="'.$dbCoin.'">'.$dbCoin.'</option>';
+
+		echo
+			'</select>',
+			'<input type="submit" name="submit" value="Query Coin from DB"/>',
+			'</form>';
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
 			$snapshots[] = $queryDb->getcoin($coinName);
@@ -37,6 +38,6 @@
 				echo '<input type="radio" name="radio" value="'.$key.'">'.$date;
 			echo '</form>';
 		}
-		?>
+	?>
 </body>
 </html>
