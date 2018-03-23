@@ -23,7 +23,7 @@
 
 		echo
 			'</select>',
-			'<input type="submit" name="submit" value="Query Coin from DB"/>',
+			'<input type="submit" name="submit" value="Query Snapshot Dates from DB"/>',
 			'</form>';
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
@@ -34,10 +34,21 @@
 				$snapshotDates[] = $snapshot['dateCreated'];
 
 			echo '<form action="#" method="post">';
+
 			foreach ($snapshotDates as $key => $date)
-				echo '<input type="radio" name="radio" value="'.$key.'">'.$date;
-			echo '</form>';
+				echo '<a href="index.php?snapshot=' . $key . '">' . $date . '</a>';
+
 		}
+
+	function getCoin($snapshot) {
+		echo 'I will attempt to grab snapshot #'.
+		$snapshot;
+	}
+
+	if (isset($_GET['snapshot']))
+		getCoin($_GET['snapshot']);
+
 	?>
+
 </body>
 </html>
