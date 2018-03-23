@@ -11,6 +11,12 @@ use App\SQLiteConnection;
 
 $pdo = (new SQLiteConnection())->connect();
 if ($pdo != null)
-	echo 'Connected to the SQLite database successfully!';
+	echo 'Connected to the SQLite database successfully!' . "\n\n";
 else
-	echo 'Whoops, could not connect to the SQLite database!';
+	echo 'Whoops, could not connect to the SQLite database!' . "\n\n";
+
+$query = $pdo->query('SELECT * FROM btcusd');
+
+while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+	print_r( $row );
+}
