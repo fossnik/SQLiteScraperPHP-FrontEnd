@@ -2,3 +2,9 @@ a {
 	display: flex;
 	flex-direction: column;
 }
+tr, td {
+	border: 1px solid black;
+}
+table {
+	margin-top: 20px;
+}
