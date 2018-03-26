@@ -10,7 +10,7 @@
 		require __DIR__ . '/model/Model.php';
 
 		// declare a new database query object
-		$queryDb = new model;
+		$queryDb = new Model;
 
 		echo
 		'<h1>Select Your Coin</h1>',
