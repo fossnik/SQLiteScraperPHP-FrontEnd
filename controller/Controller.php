@@ -11,7 +11,7 @@
 include_once("model/Model.php");
 
 class Controller {
-	public $model;
+	private $model;
 
 	public function __construct() {
 		// declare a new database query object
@@ -19,14 +19,13 @@ class Controller {
 	}
 
 	public function invoke() {
-
 		echo
 		'<h1>Select Your Coin</h1>',
 		'<form action="#" method="post">',
 		'<select name="coin">',
 		'<option value="">Coins</option>';
 
-		foreach ($model->getCoins() as $dbCoin)
+		foreach ($this->model->getCoins() as $dbCoin)
 			echo '<option value="'.$dbCoin.'">' .
 				strtoupper(str_replace("usd", "", $dbCoin)) .
 				'</option>';
@@ -39,7 +38,7 @@ class Controller {
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
 
-			$snapshots[] = $model->getcoin($coinName);
+			$snapshots[] = $this->model->getcoin($coinName);
 
 			$snapshotDates = [];
 			foreach ($snapshots[0] as $snapshot)
@@ -62,7 +61,7 @@ class Controller {
 		if (isset($_GET['snapshot'])) {
 			getCoin($_GET['coin'], $_GET['snapshot']);
 			echo '<table>';
-			foreach ($model->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
+			foreach ($this->model->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
 				echo
 					'<tr>' .
 					'<td>' . $key . '</td>' .
