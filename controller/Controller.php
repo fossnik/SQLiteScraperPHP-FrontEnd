@@ -6,12 +6,12 @@
  * Time: 7:46 PM
  */
 
-namespace Model;
+namespace Controller;
 
 /**
  * SQLite connnection
  */
-class SQLiteConnection {
+class Controller {
 	/**
 	 * PDO instance
 	 * @var type

@@ -6,7 +6,7 @@
  * Time: 1:23 PM
  */
 
-use Model\SQLiteConnection;
+use Controller\Controller;
 require 'vendor/autoload.php';
 
 class model
@@ -14,7 +14,7 @@ class model
 	private static $pdo;
 
 	public function __construct() {
-		self::$pdo = (new SQLiteConnection())->connect();
+		self::$pdo = (new Controller())->connect();
 		if (self::$pdo != null)
 			echo 'SQLite database connection acquired' , "\r\n";
 		else
