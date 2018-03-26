@@ -6,11 +6,70 @@
  * Time: 7:46 PM
  */
 
-namespace Controller;
+//namespace Controller;
 
-/**
- * SQLite connnection
- */
+include_once("model/Model.php");
+
 class Controller {
+	public $model;
 
+	public function __construct() {
+		// declare a new database query object
+		$this->model = new Model();
+	}
+
+	public function invoke() {
+
+		echo
+		'<h1>Select Your Coin</h1>',
+		'<form action="#" method="post">',
+		'<select name="coin">',
+		'<option value="">Coins</option>';
+
+		foreach ($model->getCoins() as $dbCoin)
+			echo '<option value="'.$dbCoin.'">' .
+				strtoupper(str_replace("usd", "", $dbCoin)) .
+				'</option>';
+
+		echo
+		'</select>',
+		'<input type="submit" name="submit" value="Query Snapshot Dates from DB"/>',
+		'</form>';
+
+		if(isset($_POST['submit'])) {
+			$coinName = $_POST['coin'];
+
+			$snapshots[] = $model->getcoin($coinName);
+
+			$snapshotDates = [];
+			foreach ($snapshots[0] as $snapshot)
+				$snapshotDates[] = $snapshot['dateCreated'];
+
+			echo '<form action="#" method="post">';
+
+			foreach ($snapshotDates as $key => $date)
+				echo '<a href="index.php?' .
+					'coin=' . $coinName .
+					'&snapshot=' . $key .
+					'">' . $date . '</a>';
+		}
+
+		function getCoin($coin, $snapKey) {
+			echo 'Snapshot #' . $snapKey .
+				' of ' . $coin . '<br>';
+		}
+
+		if (isset($_GET['snapshot'])) {
+			getCoin($_GET['coin'], $_GET['snapshot']);
+			echo '<table>';
+			foreach ($model->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
+				echo
+					'<tr>' .
+					'<td>' . $key . '</td>' .
+					'<td>' . $string . '</td>' .
+					'</tr>';
+			}
+			echo '</table>';
+		}
+	}
 }
