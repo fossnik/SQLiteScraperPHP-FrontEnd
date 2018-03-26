@@ -6,7 +6,7 @@
  * Time: 7:46 PM
  */
 
-namespace App;
+namespace Model;
 
 /**
  * SQLite connnection

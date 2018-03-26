@@ -6,7 +6,7 @@
  * Time: 1:23 PM
  */
 
-use App\SQLiteConnection;
+use Model\SQLiteConnection;
 require 'vendor/autoload.php';
 
 class dbQuery
