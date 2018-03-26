@@ -7,10 +7,10 @@
 </head>
 <body>
 	<?php
-		require __DIR__ . '/dbQuery.php';
+		require __DIR__ . '/model/Model.php';
 
 		// declare a new database query object
-		$queryDb = new dbQuery;
+		$queryDb = new model;
 
 		echo
 		'<h1>Select Your Coin</h1>',

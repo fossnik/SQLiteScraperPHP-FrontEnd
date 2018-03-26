@@ -9,7 +9,7 @@
 use Model\SQLiteConnection;
 require 'vendor/autoload.php';
 
-class dbQuery
+class model
 {
 	private static $pdo;
 
