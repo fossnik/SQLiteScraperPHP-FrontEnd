@@ -59,9 +59,10 @@ class Controller {
 		}
 
 		if (isset($_GET['snapshot'])) {
+			$presentCoin = $this->model->getcoin($_GET['coin']);
 			getCoin($_GET['coin'], $_GET['snapshot']);
 			echo '<table>';
-			foreach ($this->model->getcoin($_GET['coin'])[$_GET['snapshot']] as $key => $string) {
+			foreach ($presentCoin[$_GET['snapshot']] as $key => $string) {
 				echo
 					'<tr>' .
 					'<td>' . $key . '</td>' .
@@ -69,6 +70,17 @@ class Controller {
 					'</tr>';
 			}
 			echo '</table>';
+
+			if (((int)$_GET['snapshot']) > 0)
+				echo
+					'<button><a href=index.php?coin=' .	$_GET['coin'] .
+					'&snapshot=' . (((int)$_GET['snapshot']) - 1) . '>Prev</a></button>';
+
+			if (((int)$_GET['snapshot']) < count($presentCoin) - 1)
+				echo
+					'<button><a href=index.php?coin=' .	$_GET['coin'] .
+					'&snapshot=' . (((int)$_GET['snapshot']) + 1) . '>Next</a></button>';
+
 		}
 	}
 }
