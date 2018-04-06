@@ -46,10 +46,10 @@ class Controller {
 
 			echo '<form action="#" method="post">';
 
-			foreach ($snapshotDates as $key => $date)
+			foreach ($snapshotDates as $propertyName => $date)
 				echo '<a href="index.php?' .
 					'coin=' . $coinName .
-					'&snapshot=' . $key .
+					'&snapshot=' . $propertyName .
 					'">' . $date . '</a>';
 		}
 
@@ -62,11 +62,11 @@ class Controller {
 			$presentCoin = $this->model->getcoin($_GET['coin']);
 			getCoin($_GET['coin'], $_GET['snapshot']);
 			echo '<table>';
-			foreach ($presentCoin[$_GET['snapshot']] as $key => $string) {
+			foreach ($presentCoin[$_GET['snapshot']] as $propertyName => $propertyValue) {
 				echo
 					'<tr>' .
-					'<td>' . $key . '</td>' .
-					'<td>' . $string . '</td>' .
+					'<td>' . $propertyName . '</td>' .
+					'<td>' . $propertyValue . '</td>' .
 					'</tr>';
 			}
 			echo '</table>';
