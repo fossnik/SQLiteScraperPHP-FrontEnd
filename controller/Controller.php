@@ -28,7 +28,7 @@ class Controller {
 		foreach ($this->model->getCoins() as $dbCoin)
 			echo '<option value="'.$dbCoin.'">' .
 				strtoupper(str_replace("usd", "", $dbCoin)) .
-				'</option>';
+				'</option>\n';
 
 		echo
 		'</select>',
@@ -38,7 +38,7 @@ class Controller {
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
 
-			$snapshots[] = $this->model->getcoin($coinName);
+			$snapshots[] = $this->model->getCoin($coinName);
 
 			$snapshotDates = [];
 			foreach ($snapshots[0] as $snapshot)
@@ -74,12 +74,12 @@ class Controller {
 			if (((int)$_GET['snapshot']) > 0)
 				echo
 					'<button><a href="index.php?coin=' .	$_GET['coin'] .
-					'&snapshot=' . (((int)$_GET['snapshot']) - 1) . '">Prev</a></button>';
+					'&amp;snapshot=' . (((int)$_GET['snapshot']) - 1) . '">Prev</a></button>';
 
 			if (((int)$_GET['snapshot']) < count($presentCoin) - 1)
 				echo
 					'<button><a href="index.php?coin=' .	$_GET['coin'] .
-					'&snapshot=' . (((int)$_GET['snapshot']) + 1) . '">Next</a></button>';
+					'&amp;snapshot=' . (((int)$_GET['snapshot']) + 1) . '">Next</a></button>';
 
 		}
 	}
