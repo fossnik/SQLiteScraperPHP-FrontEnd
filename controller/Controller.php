@@ -73,13 +73,13 @@ class Controller {
 
 			if (((int)$_GET['snapshot']) > 0)
 				echo
-					'<button><a href=index.php?coin=' .	$_GET['coin'] .
-					'&snapshot=' . (((int)$_GET['snapshot']) - 1) . '>Prev</a></button>';
+					'<button><a href="index.php?coin=' .	$_GET['coin'] .
+					'&snapshot=' . (((int)$_GET['snapshot']) - 1) . '">Prev</a></button>';
 
 			if (((int)$_GET['snapshot']) < count($presentCoin) - 1)
 				echo
-					'<button><a href=index.php?coin=' .	$_GET['coin'] .
-					'&snapshot=' . (((int)$_GET['snapshot']) + 1) . '>Next</a></button>';
+					'<button><a href="index.php?coin=' .	$_GET['coin'] .
+					'&snapshot=' . (((int)$_GET['snapshot']) + 1) . '">Next</a></button>';
 
 		}
 	}
