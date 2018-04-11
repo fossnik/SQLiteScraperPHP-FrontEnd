@@ -20,21 +20,23 @@ class Controller {
 
 	public function invoke() {
 		echo
-		'<h1>Select Your Coin</h1>',
-		'<form action="#" method="post">',
-		'<select name="coin">',
-		'<option value="">Coins</option>';
+			'<h1>Select Your Coin</h1>',
+			'<form action="#" method="post">',
+			'<select name="coin">',
+			'<option value="">Coins</option>';
 
 		foreach ($this->model->getCoins() as $dbCoin)
-			echo '<option value="'.$dbCoin.'">' .
+			echo
+				'<option value="'.$dbCoin.'">' .
 				strtoupper(str_replace("usd", "", $dbCoin)) .
 				'</option>\n';
 
 		echo
-		'</select>',
-		'<input type="submit" name="submit" value="Query Snapshot Dates from DB"/>',
-		'</form>';
+			'</select>',
+			'<input type="submit" name="submit" value="Query Snapshot Dates from DB"/>',
+			'</form>';
 
+		// invoke when coin selected
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
 
@@ -47,40 +49,43 @@ class Controller {
 			echo '<form action="#" method="post">';
 
 			foreach ($snapshotDates as $propertyName => $date)
-				echo '<a href="index.php?' .
+				echo
+					'<a href="/index.php?' .
 					'coin=' . $coinName .
-					'&snapshot=' . $propertyName .
-					'">' . $date . '</a>';
+					'&snapshot=' . $propertyName . '">' . $date .
+					'</a>';
 		}
 
+		// invoke when snapshot selected
 		if (isset($_GET['snapshot'])) {
 			$coin = $_GET['coin'];
 			$snapshotNumber = $_GET['snapshot'];
 			$coinSnapshots = $this->model->getCoinSnapshots($coin);
 
-			echo '<table>' .
-				'<tr><th colspan="2"><em>' .
-				$coin . '</em> snapshot ' . $snapshotNumber .
+			echo
+				'<table>',
+				'<tr><th colspan="2">',
+				'<em>' . $coin . '</em> snapshot ' . $snapshotNumber .
 				'</th></tr>';
 
-			foreach ($coinSnapshots[$snapshotNumber] as $propertyName => $propertyValue) {
+			foreach ($coinSnapshots[$snapshotNumber] as $propertyName => $propertyValue)
 				echo
-					'<tr>' .
-					'<td>' . $propertyName . '</td>' .
-					'<td>' . $propertyValue . '</td>' .
+					'<tr>',
+					'<td>' . $propertyName . '</td>',
+					'<td>' . $propertyValue . '</td>',
 					'</tr>';
-			}
+
 			echo '</table>';
 
 			// Previous and Next buttons for Snapshot Navigation
 			if ((int)$snapshotNumber > 0)
 				echo
-					'<button><a href="index.php?coin=' . $coin .
+					'<button><a href="/index.php?coin=' . $coin .
 					'&amp;snapshot=' . (((int)$snapshotNumber) - 1) . '">Prev</a></button>';
 
 			if ((int)$snapshotNumber < count($coinSnapshots) - 1)
 				echo
-					'<button><a href="index.php?coin=' . $coin .
+					'<button><a href="/index.php?coin=' . $coin .
 					'&amp;snapshot=' . (((int)$snapshotNumber) + 1) . '">Next</a></button>';
 		}
 	}
