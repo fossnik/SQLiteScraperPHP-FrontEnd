@@ -50,7 +50,7 @@ class Controller {
 
 			foreach ($snapshotDates as $propertyName => $date)
 				echo
-					'<a href="/index.php?' .
+					'<a href="index.php?' .
 					'coin=' . $coinName .
 					'&snapshot=' . $propertyName . '">' . $date .
 					'</a>';
@@ -80,12 +80,12 @@ class Controller {
 			// Previous and Next buttons for Snapshot Navigation
 			if ((int)$snapshotNumber > 0)
 				echo
-					'<button><a href="/index.php?coin=' . $coin .
+					'<button><a href="index.php?coin=' . $coin .
 					'&amp;snapshot=' . (((int)$snapshotNumber) - 1) . '">Prev</a></button>';
 
 			if ((int)$snapshotNumber < count($coinSnapshots) - 1)
 				echo
-					'<button><a href="/index.php?coin=' . $coin .
+					'<button><a href="index.php?coin=' . $coin .
 					'&amp;snapshot=' . (((int)$snapshotNumber) + 1) . '">Next</a></button>';
 		}
 	}
