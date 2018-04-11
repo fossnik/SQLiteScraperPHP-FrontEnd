@@ -43,7 +43,7 @@ class Model
 		return $DbCoins;
 	}
 
-	public function getCoin($name) {
+	public function getCoinSnapshots($name) {
 		$query = $this->pdo->query('SELECT * FROM ' . $name);
 		$coin = [];
 		while($row = $query->fetch(PDO::FETCH_ASSOC))

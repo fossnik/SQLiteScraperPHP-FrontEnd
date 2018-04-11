@@ -38,7 +38,7 @@ class Controller {
 		if(isset($_POST['submit'])) {
 			$coinName = $_POST['coin'];
 
-			$snapshots[] = $this->model->getCoin($coinName);
+			$snapshots[] = $this->model->getCoinSnapshots($coinName);
 
 			$snapshotDates = [];
 			foreach ($snapshots[0] as $snapshot)
@@ -53,16 +53,17 @@ class Controller {
 					'">' . $date . '</a>';
 		}
 
-		function getCoin($coin, $snapKey) {
-			echo 'Snapshot #' . $snapKey .
-				' of ' . $coin . '<br>';
-		}
-
 		if (isset($_GET['snapshot'])) {
-			$presentCoin = $this->model->getcoin($_GET['coin']);
-			getCoin($_GET['coin'], $_GET['snapshot']);
-			echo '<table>';
-			foreach ($presentCoin[$_GET['snapshot']] as $propertyName => $propertyValue) {
+			$coin = $_GET['coin'];
+			$snapshotNumber = $_GET['snapshot'];
+			$coinSnapshots = $this->model->getCoinSnapshots($coin);
+
+			echo '<table>' .
+				'<tr><th colspan="2"><em>' .
+				$coin . '</em> snapshot ' . $snapshotNumber .
+				'</th></tr>';
+
+			foreach ($coinSnapshots[$snapshotNumber] as $propertyName => $propertyValue) {
 				echo
 					'<tr>' .
 					'<td>' . $propertyName . '</td>' .
@@ -71,16 +72,16 @@ class Controller {
 			}
 			echo '</table>';
 
-			if (((int)$_GET['snapshot']) > 0)
+			// Previous and Next buttons for Snapshot Navigation
+			if ((int)$snapshotNumber > 0)
 				echo
-					'<button><a href="index.php?coin=' .	$_GET['coin'] .
-					'&amp;snapshot=' . (((int)$_GET['snapshot']) - 1) . '">Prev</a></button>';
+					'<button><a href="index.php?coin=' . $coin .
+					'&amp;snapshot=' . (((int)$snapshotNumber) - 1) . '">Prev</a></button>';
 
-			if (((int)$_GET['snapshot']) < count($presentCoin) - 1)
+			if ((int)$snapshotNumber < count($coinSnapshots) - 1)
 				echo
-					'<button><a href="index.php?coin=' .	$_GET['coin'] .
-					'&amp;snapshot=' . (((int)$_GET['snapshot']) + 1) . '">Next</a></button>';
-
+					'<button><a href="index.php?coin=' . $coin .
+					'&amp;snapshot=' . (((int)$snapshotNumber) + 1) . '">Next</a></button>';
 		}
 	}
 }
