@@ -6,7 +6,6 @@
  * Time: 1:23 PM
  */
 
-//use Controller\Controller;
 require 'vendor/autoload.php';
 
 class Model

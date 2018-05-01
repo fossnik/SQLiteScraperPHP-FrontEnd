@@ -6,8 +6,6 @@
  * Time: 7:46 PM
  */
 
-//namespace Controller;
-
 include_once("model/Model.php");
 
 class Controller {
